@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jsoniter.output.JsonStream;
-
 import fr.asterox.TripPricer.service.TripPricerService;
 import tripPricer.Provider;
 
@@ -21,13 +19,8 @@ public class TripPricerController {
 	UserManagementController userManagementController;
 
 	@RequestMapping("/getTripDeals")
-	public String getTripDeals(@RequestParam String userName) {
-		List<Provider> providers = tripPricerService.getTripDeals(userManagementController.getUser(userName));
-		return JsonStream.serialize(providers);
+	public List<Provider> getTripDeals(@RequestParam String userName) {
+		return tripPricerService.getTripDeals(userName);
 	}
 
-//	@RequestMapping("/getRewards")
-//	public String getRewards(@RequestParam String userName) {
-//		return usersManagementProxy.getRewards(userName);
-//	}
 }

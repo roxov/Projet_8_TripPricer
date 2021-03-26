@@ -1,4 +1,4 @@
-package fr.asterox.TripPricer.DTO;
+package fr.asterox.TripPricer.dto;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;

@@ -1,4 +1,4 @@
-package fr.asterox.TripPricer.DTO;
+package fr.asterox.TripPricer.dto;
 
 import gpsUtil.location.Attraction;
 import gpsUtil.location.VisitedLocation;
