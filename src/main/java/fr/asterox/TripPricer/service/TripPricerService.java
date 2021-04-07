@@ -12,9 +12,10 @@ import tripPricer.Provider;
 import tripPricer.TripPricer;
 
 @Service
-public class TripPricerService {
+public class TripPricerService implements ITripPricerService {
 	@Autowired
 	private TripPricer tripPricer;
+
 	@Autowired
 	UserManagementController userManagementController;
 
@@ -28,14 +29,19 @@ public class TripPricerService {
 		this.tripPricer = tripPricer;
 	}
 
+	@Override
 	public List<Provider> getTripDeals(String userName) {
 		int cumulatativeRewardPoints = userManagementController.getUserRewards(userName).stream()
 				.mapToInt(i -> i.getRewardPoints()).sum();
+
+		logger.debug("getting providers from tripPricer for the preferences of user :" + userName);
+
 		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, userManagementController.getUserId(userName),
 				userManagementController.getUserPreferences(userName).getNumberOfAdults(),
 				userManagementController.getUserPreferences(userName).getNumberOfChildren(),
 				userManagementController.getUserPreferences(userName).getTripDuration(), cumulatativeRewardPoints);
 		userManagementController.setTripDeals(userName, providers);
+
 		return providers;
 	}
 

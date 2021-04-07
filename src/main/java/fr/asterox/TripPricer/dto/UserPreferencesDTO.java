@@ -1,49 +1,51 @@
 package fr.asterox.TripPricer.dto;
 
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
+public class UserPreferencesDTO {
 
-import org.javamoney.moneta.Money;
-
-
-public class UserPreferences {
-	
 	private int attractionProximity = Integer.MAX_VALUE;
-	private CurrencyUnit currency = Monetary.getCurrency("USD");
-	private Money lowerPricePoint = Money.of(0, currency);
-	private Money highPricePoint = Money.of(Integer.MAX_VALUE, currency);
+	private String currency;
+	private int lowerPricePoint;
+	private int highPricePoint;
 	private int tripDuration = 1;
 	private int ticketQuantity = 1;
 	private int numberOfAdults = 1;
 	private int numberOfChildren = 0;
-	
-	public UserPreferences() {
+
+	public UserPreferencesDTO() {
 	}
-	
-	public void setAttractionProximity(int attractionProximity) {
-		this.attractionProximity = attractionProximity;
-	}
-	
+
 	public int getAttractionProximity() {
 		return attractionProximity;
 	}
-	
-	public Money getLowerPricePoint() {
+
+	public void setAttractionProximity(int attractionProximity) {
+		this.attractionProximity = attractionProximity;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public int getLowerPricePoint() {
 		return lowerPricePoint;
 	}
 
-	public void setLowerPricePoint(Money lowerPricePoint) {
+	public void setLowerPricePoint(int lowerPricePoint) {
 		this.lowerPricePoint = lowerPricePoint;
 	}
 
-	public Money getHighPricePoint() {
+	public int getHighPricePoint() {
 		return highPricePoint;
 	}
 
-	public void setHighPricePoint(Money highPricePoint) {
+	public void setHighPricePoint(int highPricePoint) {
 		this.highPricePoint = highPricePoint;
 	}
-	
+
 	public int getTripDuration() {
 		return tripDuration;
 	}
@@ -59,7 +61,7 @@ public class UserPreferences {
 	public void setTicketQuantity(int ticketQuantity) {
 		this.ticketQuantity = ticketQuantity;
 	}
-	
+
 	public int getNumberOfAdults() {
 		return numberOfAdults;
 	}
