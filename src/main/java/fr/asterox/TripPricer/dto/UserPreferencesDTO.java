@@ -14,6 +14,13 @@ public class UserPreferencesDTO {
 	public UserPreferencesDTO() {
 	}
 
+	public UserPreferencesDTO(int tripDuration, int numberOfAdults, int numberOfChildren) {
+		super();
+		this.tripDuration = tripDuration;
+		this.numberOfAdults = numberOfAdults;
+		this.numberOfChildren = numberOfChildren;
+	}
+
 	public int getAttractionProximity() {
 		return attractionProximity;
 	}

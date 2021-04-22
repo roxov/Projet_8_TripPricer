@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.asterox.TripPricer.controller.UserManagementController;
+import fr.asterox.TripPricer.proxy.UserManagementProxy;
 import tripPricer.Provider;
 import tripPricer.TripPricer;
 
@@ -17,7 +17,7 @@ public class TripPricerService implements ITripPricerService {
 	private TripPricer tripPricer;
 
 	@Autowired
-	UserManagementController userManagementController;
+	UserManagementProxy userManagementProxy;
 
 	private Logger logger = LoggerFactory.getLogger(TripPricerService.class);
 
@@ -25,22 +25,19 @@ public class TripPricerService implements ITripPricerService {
 		super();
 	}
 
-	public TripPricerService(TripPricer tripPricer) {
-		this.tripPricer = tripPricer;
-	}
-
 	@Override
 	public List<Provider> getTripDeals(String userName) {
-		int cumulatativeRewardPoints = userManagementController.getUserRewards(userName).stream()
+		int cumulatativeRewardPoints = userManagementProxy.getUserRewards(userName).stream()
 				.mapToInt(i -> i.getRewardPoints()).sum();
 
 		logger.debug("getting providers from tripPricer for the preferences of user :" + userName);
 
-		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, userManagementController.getUserId(userName),
-				userManagementController.getUserPreferences(userName).getNumberOfAdults(),
-				userManagementController.getUserPreferences(userName).getNumberOfChildren(),
-				userManagementController.getUserPreferences(userName).getTripDuration(), cumulatativeRewardPoints);
-		userManagementController.setTripDeals(userName, providers);
+		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, userManagementProxy.getUserId(userName),
+				userManagementProxy.getUserPreferences(userName).getNumberOfAdults(),
+				userManagementProxy.getUserPreferences(userName).getNumberOfChildren(),
+				userManagementProxy.getUserPreferences(userName).getTripDuration(), cumulatativeRewardPoints);
+
+		userManagementProxy.setTripDeals(userName, providers);
 
 		return providers;
 	}

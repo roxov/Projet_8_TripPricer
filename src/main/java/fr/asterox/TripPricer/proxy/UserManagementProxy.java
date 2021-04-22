@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.asterox.TripPricer.dto.UserPreferencesDTO;
@@ -15,15 +16,15 @@ import tripPricer.Provider;
 @FeignClient(name = "UserManagement", url = "localhost:9001")
 public interface UserManagementProxy {
 
-	@RequestMapping("/getUserId")
+	@GetMapping("/getUserId")
 	public UUID getUserId(@RequestParam String userName);
 
-	@RequestMapping("/getUserPreferences")
+	@GetMapping("/getUserPreferences")
 	public UserPreferencesDTO getUserPreferences(@RequestParam String userName);
 
-	@RequestMapping("/getUserRewards")
+	@GetMapping("/getUserRewards")
 	public List<UserRewardDTO> getUserRewards(@RequestParam String userName);
 
-	@RequestMapping("/setTripDeals")
+	@PostMapping("/setTripDeals")
 	public void setTripDeals(@RequestParam String userName, @RequestBody List<Provider> providers);
 }
