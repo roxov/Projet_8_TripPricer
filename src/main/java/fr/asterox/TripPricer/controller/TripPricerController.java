@@ -2,6 +2,8 @@ package fr.asterox.TripPricer.controller;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class TripPricerController {
 	private Logger logger = LoggerFactory.getLogger(TripPricerController.class);
 
 	@GetMapping("/getTripDeals")
-	public List<Provider> getTripDeals(@RequestParam String userName) {
+	public List<Provider> getTripDeals(@RequestParam @NotNull(message = "username is compulsory") String userName) {
 		logger.debug("getting trip deals for user :" + userName);
 		return tripPricerService.getTripDeals(userName);
 	}

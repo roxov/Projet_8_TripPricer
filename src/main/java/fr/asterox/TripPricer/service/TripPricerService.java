@@ -43,4 +43,5 @@ public class TripPricerService implements ITripPricerService {
 	}
 
 	private static final String tripPricerApiKey = "test-server-api-key";
+
 }
