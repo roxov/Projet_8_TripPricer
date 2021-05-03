@@ -21,15 +21,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import fr.asterox.TripPricer.dto.AttractionDTO;
 import fr.asterox.TripPricer.dto.UserPreferencesDTO;
 import fr.asterox.TripPricer.dto.UserRewardDTO;
+import fr.asterox.TripPricer.dto.VisitedLocationDTO;
 import fr.asterox.TripPricer.proxy.UserManagementProxy;
-import gpsUtil.location.Attraction;
-import gpsUtil.location.VisitedLocation;
 import tripPricer.Provider;
 import tripPricer.TripPricer;
 
-//@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class TripPricerServiceTest {
 
@@ -48,11 +47,11 @@ public class TripPricerServiceTest {
 		UUID userId = UUID.fromString("329e4bf3-ee62-4a67-b7d7-b0dc06989c6e");
 		UserPreferencesDTO userPreferences = new UserPreferencesDTO();
 
-		Attraction attraction = new Attraction("name", "city", "state", 144, 155);
+		AttractionDTO attraction = new AttractionDTO("name", "city", "state", 144, 155);
 		when(tripPricer.getPrice(anyString(), any(UUID.class), anyInt(), anyInt(), anyInt(), anyInt()))
 				.thenReturn(new TripPricer().getPrice("riendutout", userId, 1, 0, 1, 1000));
 		when(userManagementProxy.getUserRewards("jon")).thenReturn(
-				List.of(new UserRewardDTO(new VisitedLocation(userId, attraction, new Date()), attraction)));
+				List.of(new UserRewardDTO(new VisitedLocationDTO(userId, attraction, new Date()), attraction)));
 		when(userManagementProxy.getUserId("jon")).thenReturn(userId);
 		when(userManagementProxy.getUserPreferences("jon")).thenReturn(userPreferences);
 		doNothing().when(userManagementProxy).setTripDeals(eq("jon"), anyList());
